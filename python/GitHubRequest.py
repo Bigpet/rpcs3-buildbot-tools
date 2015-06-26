@@ -4,6 +4,30 @@ import sys
 import os
 
 def GitHubRequest(repository, credentials, url, data=None, datatype=None, useRawURL=False ):
+    """ GitHubRequest(repository, credentials, url, data=None, datatype=None, useRawURL=False ) -> response, returncode
+    
+    This function is thoroughly unpythonic and you should probably just use it
+    as a starting point.
+    It dispatches a request to the GitHub API (written with v3 in mind).
+    A GET request if data is not specified, a POST request with the string in
+    data if datatype is not specified and a POST request with the contents of
+    the filename in data if datatype is specified.
+    
+    Arguments:
+        repository  - GitHub with in the format 'User/Repository'
+        credentials - GitHub username and personal access token in the format
+                      'username:accesstoken'
+        url         - the GitHub API url, for example 'issues/3' or a complete
+                      url if useRawURL is set to True
+        data        - string specifying the data to be send, if datatype is
+                      None the string is send, otherwise a file with the name
+                      is opened and sent
+        datatype    - the type of data to be, if it's a str it will be used as
+                      MIME type for the POST request, if it't not a str or 
+                      NoneType then the MIME type will be 'application/octet-stream'
+        useRawURL   - specify whether the url is the full request URL (when
+                      True) or just a partial url to append to 'apiurl/repo/'
+    """
     if isinstance(credentials,str):
         credentials = bytes(credentials,'UTF-8')
     if useRawURL == True:
@@ -15,7 +39,7 @@ def GitHubRequest(repository, credentials, url, data=None, datatype=None, useRaw
     #GET request
     if data==None:
         req = urllib.request.Request(requesturl)
-    else: #PUT request
+    else: #POST request
         if datatype==None:#JSON POST request
             req = urllib.request.Request(requesturl, data=bytes(data,'UTF-8'))
         else: #File POST request
