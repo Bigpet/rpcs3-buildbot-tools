@@ -1,11 +1,3 @@
-@echo off
-REM This batch file assumes that "rpcs3-buildblot-tools" is a sub-folder of the repository root of rpcs3
-
-cd 7z
-SET PATH=%PATH%;%CD%
-cd ..
-cd ..
-cd ..
 mkdir build
 mkdir build\rpcs3
 copy bin\rpcs3-*.exe build\rpcs3
@@ -27,5 +19,5 @@ xcopy /Y /e bin\dev_usb000 build\rpcs3\dev_usb000
 for /f "delims=" %%a in ('git describe') do @set gitrev=%%a
 
 cd build
-7z a -mx9 ..\rpcs3-%gitrev%-windows-x86_64.7z rpcs3
+7z a -mx9 ..\rpcs3-%gitrev%-win_x64.zip rpcs3
 cd ..
