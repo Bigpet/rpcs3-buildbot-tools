@@ -1,6 +1,6 @@
 mkdir build
 mkdir build\rpcs3
-copy bin\rpcs3-*.exe build\rpcs3
+copy bin\rpcs3*.exe build\rpcs3
 copy bin\soft_oal.dll build\rpcs3
 copy bin\make_fself.cmd build\rpcs3
 
