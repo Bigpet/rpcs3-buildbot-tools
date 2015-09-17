@@ -6,6 +6,7 @@ import base64
 import sys
 import os
 import json
+import re
 
 def main():
     if len(sys.argv) < 4:
@@ -49,7 +50,7 @@ def main():
     #Get upload_url
     resdict = json.loads(response.decode('utf-8'))
     upload_url = resdict['upload_url']
-    upload_url = upload_url.replace('{?name}',"?name=%s"%filename)
+    upload_url = re.sub(r'\{\?[\,a-zA-Z0-9]*name[\,a-zA-Z0-9]*\}',"?name=%s"%filename,upload_url)
     
     assets = resdict['assets']
     for asset in assets:
